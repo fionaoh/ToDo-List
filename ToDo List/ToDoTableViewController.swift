@@ -10,24 +10,16 @@ import UIKit
 class ToDoTableViewController: UITableViewController {
     
     var toDos : [ToDoCD] = []
+    var index = -1
 
+    @IBOutlet var listView: UITableView!
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       // toDos = createToDos()
-        /*
-        func getToDos() {
-            if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
-                
-                if let coreDataToDos = try? context.fetch(ToDoCD.fetchRequest()) as? [ToDoCD] {
-                   
-                        toDos = coreDataToDos
-                        tableView.reloadData()
-                    
-                }
-            }
-        }*/
-        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,13 +64,59 @@ class ToDoTableViewController: UITableViewController {
         
         if let name = toDo.name {
             if toDo.important {
-                cell.textLabel?.text = "‼️" + name
+                cell.textLabel?.text = "⭐️ " + name
             } else {
                 cell.textLabel?.text = toDo.name
             }
         }
         
         return cell
+    }
+    
+    private func handleDelete() {
+
+        
+        if toDos.isEmpty != true {
+            if index != -1 {
+                let toDoDelete = self.toDos[index]
+                self.context.delete(toDoDelete)
+                
+                do {
+                    try self.context.save()
+                } catch {
+                    
+                }
+                
+                self.fetchToDos()
+                
+            }
+        }
+        
+        index = -1
+        
+        print("deleted")
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title: "Complete") {[weak self] (action, view, completionHandler) in self?.handleDelete(); completionHandler(true)}
+        
+        action.backgroundColor = .systemRed
+        
+        index = indexPath[1]
+        
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    func fetchToDos() {
+        do {
+            self.toDos = try context.fetch(ToDoCD.fetchRequest())
+            
+            if toDos.isEmpty != true {
+                self.listView.reloadData()
+            }
+        } catch {
+            
+        }
     }
 
     /*
@@ -135,3 +173,4 @@ class ToDoTableViewController: UITableViewController {
     
 
 }
+

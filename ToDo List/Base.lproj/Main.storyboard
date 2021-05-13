@@ -39,6 +39,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="listView" destination="xbZ-5v-2AS" id="vVP-QJ-rdY"/>
                         <segue destination="40B-fS-lwS" kind="show" identifier="moveToComplete" id="UIE-yR-oGE"/>
                     </connections>
                 </tableViewController>
@@ -126,6 +127,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Klh-CT-bA9">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -144,33 +146,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87o-Wu-1fB">
-                                <rect key="frame" x="124" y="169" width="166" height="51"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aM4-0b-gBB">
+                                <rect key="frame" x="165" y="312" width="99" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save Edits"/>
+                                <connections>
+                                    <action selector="saveEdits:" destination="40B-fS-lwS" eventType="touchUpInside" id="tWV-Bz-w1e"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRw-Zi-HNM">
+                                <rect key="frame" x="87" y="185" width="46" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mD-vP-3tj">
-                                <rect key="frame" x="127" y="265" width="161" height="59"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Important:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3p-Uv-flC">
+                                <rect key="frame" x="87" y="241" width="87" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Complete"/>
-                                <connections>
-                                    <action selector="completeTapped:" destination="40B-fS-lwS" eventType="touchUpInside" id="JjC-nX-fJ7"/>
-                                </connections>
-                            </button>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xz5-nG-Dz9">
+                                <rect key="frame" x="133" y="185" width="194" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHj-15-FLv">
+                                <rect key="frame" x="217" y="243" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ypL-tb-X5S"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="cFp-Yr-c6j"/>
                     <connections>
-                        <outlet property="titleLabel" destination="87o-Wu-1fB" id="AMW-U5-1QG"/>
+                        <outlet property="importantLabel" destination="X3p-Uv-flC" id="wQf-QK-k6U"/>
+                        <outlet property="importantSwitch" destination="uHj-15-FLv" id="90S-eS-lYZ"/>
+                        <outlet property="saveEditButton" destination="aM4-0b-gBB" id="EEK-lG-RQj"/>
+                        <outlet property="titleLable" destination="GRw-Zi-HNM" id="Lrm-WL-nhW"/>
+                        <outlet property="titleTextField" destination="Xz5-nG-Dz9" id="9pA-oq-B22"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wiF-nI-kL9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="777"/>
+            <point key="canvasLocation" x="1002.8985507246377" y="776.78571428571422"/>
         </scene>
     </scenes>
     <resources>
