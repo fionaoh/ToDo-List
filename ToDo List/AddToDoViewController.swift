@@ -21,7 +21,7 @@ class AddToDoViewController: UIViewController {
     }
     
     @IBAction func addTapped(_ sender: UIButton) {
-        
+        /*
         let toDo = ToDo()
         
         if let titleText = titleTextField.text {
@@ -32,6 +32,24 @@ class AddToDoViewController: UIViewController {
         previousVC.toDos.append(toDo)
         previousVC.tableView.reloadData()
         navigationController?.popViewController(animated: true)
+         */
+        
+        //grab view context to work with Core Data
+        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+            //make new ToDoCD object
+            let toDo = ToDoCD(entity: ToDoCD.entity(), insertInto: context)
+            //if titleTextField has text, call it titleText
+            if let titleText = titleTextField.text {
+                toDo.name = titleText
+                toDo.important = importantSwitch.isOn
+            }
+            
+            //save context
+            try? context.save()
+            
+            //pop view controller to get back to table view
+            navigationController?.popViewController(animated: true)
+        }
     }
     
 }
